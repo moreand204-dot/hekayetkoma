@@ -3,6 +3,8 @@ import { prisma } from "@/lib/db";
 import { generatePublicToken } from "@/lib/token";
 import { createExperienceSchema } from "@/lib/validation";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: NextRequest) {
   let json: unknown;
   try {
@@ -54,5 +56,3 @@ export async function POST(req: NextRequest) {
   }
   return NextResponse.json({ error: "تعذر إنشاء رابط فريد، حاول مرة أخرى" }, { status: 500 });
 }
-
-export const dynamic = "force-dynamic";

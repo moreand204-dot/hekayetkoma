@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+
 // صفحة الاستقبال العامة تقرأ فقط - لا يوجد مسار لتعديل أو حذف تجربة عبر هذا الرابط العام
 export async function GET(_req: NextRequest, { params }: { params: { token: string } }) {
   const token = params.token?.trim();
@@ -25,5 +27,3 @@ export async function GET(_req: NextRequest, { params }: { params: { token: stri
     return NextResponse.json({ error: "تعذر الاتصال بقاعدة البيانات" }, { status: 500 });
   }
 }
-
-export const dynamic = "force-dynamic";
