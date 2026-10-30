@@ -25,3 +25,5 @@ export async function GET(_req: NextRequest, { params }: { params: { token: stri
     return NextResponse.json({ error: "تعذر الاتصال بقاعدة البيانات" }, { status: 500 });
   }
 }
+
+export const dynamic = "force-dynamic";

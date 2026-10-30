@@ -54,3 +54,5 @@ export async function POST(req: NextRequest) {
   }
   return NextResponse.json({ error: "تعذر إنشاء رابط فريد، حاول مرة أخرى" }, { status: 500 });
 }
+
+export const dynamic = "force-dynamic";
