@@ -1,0 +1,43 @@
+// مخطط قاعدة البيانات لمشروع "حكايتكما"
+// يعمل مع أي قاعدة PostgreSQL مُدارة (Supabase, Neon, Railway, VPS خاص...)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Experience {
+  id      String @id @default(cuid())
+
+  // رمز عام عشوائي يُستخدم في الرابط، لا علاقة له بالـ id الداخلي
+  publicToken String @unique @db.VarChar(32)
+
+  // بيانات أساسية
+  senderName     String @db.VarChar(60)
+  recipientName  String @db.VarChar(60)
+  senderGender   String @db.VarChar(12) // male | female | unspecified
+  writingVoice   String @default("auto") @db.VarChar(12) // auto | male | female | neutral
+  experienceType String @db.VarChar(20) // message | collection | poem | story | apology | longing | occasion | mixed
+  language       String @db.VarChar(10) // masri | fusha
+  theme          String @default("cinematic") @db.VarChar(12)
+
+  // تفاصيل اختيارية بالكامل - قد تكون فارغة
+  relationshipStartDate String? @db.VarChar(60)
+  specialMemory         String? @db.Text
+  memorableMoment        String? @db.Text
+  personalMessage        String? @db.Text
+  specialNickname        String? @db.VarChar(40)
+  occasion                String? @db.VarChar(80)
+  recipientDescription    String? @db.VarChar(200)
+  specialPhrase            String? @db.VarChar(200)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  expiresAt DateTime?
+
+  @@index([publicToken])
+}
